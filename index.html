@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>我是一个datepicker--!</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta charset="utf-8">
+<!--     <link rel="stylesheet" type="text/css" href="../../css/ratchet.css"> -->
+    <link rel="stylesheet" type="text/css" href="css/datePicker.css">
+    <style>
+    .input-group{
+        padding: 10px;
+    }
+    .input-group input{
+        margin:10px;
+        padding:5px 10px;
+        border:1px solid #ddd;
+        border-radius: 5px;
+        width: auto;
+    }
+    </style>
+    <script type="text/javascript" src="js/require/jquery.min.js"></script>
+    <script type="text/javascript" src="js/require/iscroll.js"></script>
+    <script type="text/javascript" src="js/datePicker.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $('#date5').datePicker({
+                beginyear:2005,
+                theme:'datetime',
+                callBack:function(){
+                alert("--!当前值:"+$('#date5').val());
+            }});
+             $('#date6').datePicker({
+                beginyear:2005,
+                theme:'date',
+                });
+              $('#date7').datePicker({
+                theme:'time',
+                });
+            $('#date8').datePicker({
+                theme:'month',
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="content">
+        <img src="webwxgetmsgimg.jpg">
+        <h3>点下面的框框啊~~~</h3>
+        <div class="input-group">
+            <input type="text" id="date5" readonly="" placeholder="年-月-日-时间-回调" >
+        </div>
+        <div class="input-group">
+            <input type="text" id="date6" readonly="" placeholder="年-月-日">
+        </div>
+        <div class="input-group">
+            <input type="text" id="date7" readonly="" placeholder="时间">
+        </div>
+        <div class="input-group">
+            <input type="text" id="date8" readonly="" placeholder="月份">
+        </div>
+    </div>
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="213" data-title="datepicker" data-url="http://deng213.sinaapp.com/demo/datePicker/index2.html"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"dddsina"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+<!-- 多说公共JS代码 end -->
+    <div id="datePlugin" style="display:none;">
+    </div>
+</body>
