@@ -1,8 +1,8 @@
 # datePicker
 ##描述
-一个适合移动端的日期选择插件，支持选择时间
+一个适合移动端的日期选择插件，支持ios,andriod,PC端主流浏览器
 ##DEMO
-[demo](http://deng213.sinapp/demo/datePicker)
+[demo](http://deng213.sinaapp.com/demo/datePicker/)
 ##依赖
 jquery 1.9+或者Zepto,iscroll5
 ##使用：
