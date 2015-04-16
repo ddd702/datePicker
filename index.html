@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>我是一个datepicker--!</title>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
@@ -7,50 +8,53 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta charset="utf-8">
-<!--     <link rel="stylesheet" type="text/css" href="../../css/ratchet.css"> -->
+    <!--     <link rel="stylesheet" type="text/css" href="../../css/ratchet.css"> -->
     <link rel="stylesheet" type="text/css" href="css/datePicker.css">
     <style>
-    .input-group{
+    .input-group {
         padding: 10px;
     }
-    .input-group input{
-        margin:10px;
-        padding:5px 10px;
-        border:1px solid #ddd;
+    
+    .input-group input {
+        margin: 10px;
+        padding: 5px 10px;
+        border: 1px solid #ddd;
         border-radius: 5px;
         width: auto;
     }
     </style>
-    <script type="text/javascript" src="js/require/zepto.min.js"></script>
+    <script type="text/javascript" src="js/require/jquery.min.js"></script>
     <script type="text/javascript" src="js/require/iscroll.js"></script>
     <script type="text/javascript" src="js/datePicker.js"></script>
     <script type="text/javascript">
-        $(function(){
-            $('#date5').datePicker({
-                beginyear:2005,
-                theme:'datetime',
-                callBack:function(){
-                alert("--!当前值:"+$('#date5').val());
-            }});
-             $('#date6').datePicker({
-                beginyear:2005,
-                theme:'date',
-                });
-              $('#date7').datePicker({
-                theme:'time',
-                });
-            $('#date8').datePicker({
-                theme:'month',
-            });
+    $(function() {
+        $('#date5').datePicker({
+            beginyear: 2005,
+            theme: 'datetime',
+            callBack: function() {
+                alert("--!当前值:" + $('#date5').val());
+            }
         });
+        $('#date6').datePicker({
+            beginyear: 2005,
+            theme: 'date',
+        });
+        $('#date7').datePicker({
+            theme: 'time',
+        });
+        $('#date8').datePicker({
+            theme: 'month',
+        });
+    });
     </script>
 </head>
+
 <body>
     <div class="content">
         <img src="webwxgetmsgimg.jpg">
         <h3>点下面的框框啊~~~</h3>
         <div class="input-group">
-            <input type="text" id="date5" readonly="" placeholder="年-月-日-时间-回调" >
+            <input type="text" id="date5" readonly="" placeholder="年-月-日-时间-回调">
         </div>
         <div class="input-group">
             <input type="text" id="date6" readonly="" placeholder="年-月-日">
@@ -61,22 +65,109 @@
         <div class="input-group">
             <input type="text" id="date8" readonly="" placeholder="月份">
         </div>
+        <div class="input-group">
+            <span id="y"></span>
+            <span id="M"></span>
+            <span id="d"></span>
+            <span id="h"></span>
+            <span id="m"></span>
+            <span id="s"></span>
+        </div>
     </div>
     <!-- 多说评论框 start -->
     <div class="ds-thread" data-thread-key="213" data-title="datepicker" data-url="http://deng213.sinaapp.com/demo/datePicker/index2.html"></div>
-<!-- 多说评论框 end -->
-<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"dddsina"};
-    (function() {
-        var ds = document.createElement('script');
-        ds.type = 'text/javascript';ds.async = true;
-        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-        ds.charset = 'UTF-8';
-        (document.getElementsByTagName('head')[0] 
-         || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <!-- 多说公共JS代码 end -->
+    <script type="text/javascript" charset="utf-8">
+    function countTime(opt) {
+        var now = new Date().getTime();
+        var defaultOpt = {
+            st: now, //开始时间,时间戳
+            et: now, //结束时间,时间戳
+            sdom: null,
+            mdom: null,
+            hdom: null,
+            ddom: null,
+            Mdom: null,
+            ydom: null
+        };
+        this.opt = $.extend({}, defaultOpt, opt);
+        this.h = 0;
+        this.m = 0;
+        this.s = 0;
+        this.d = 0;
+        this.M = 0;
+        this.y = 0;
+        this.init = function() {
+            if (now >= this.st) {
+                this.interCount();
+            } else {
+                this.interCount();
+            }
+        };
+        this.interCount = function() {
+            var _this = this;
+            var bTime = _this.bTime();
+            if (bTime > 0) {
+                _this.interSwitch = setInterval(function() {
+                    bTime--;
+                    if (bTime < 0) {
+                        clearInterval(_this.interSwitch);
+                    } else {
+                        _this.renderTime(bTime);
+                    }
+                }, 1000);
+            } else {
+
+            }
+        };
+        this.bTime = function() { //距离的时间(单位s)
+            return Math.round(this.opt.et / 1000 - now / 1000);
+        };
+        this.renderTime = function(t) {
+            /*if (t <= 60) {
+                this.h = 0;
+                this.m = 0;
+                this.s = t;
+            } else {
+                if (Math.floor(t / 60) < 60) {
+                    this.m = Math.floor(t / 60);
+                    this.h = 0;
+                    this.s = t % 60;
+                } else {
+                    this.h = Math.floor(t / 3600);
+                    this.m = Math.floor(t / 60) % 60;
+                    this.s = t % 60;
+                }
+            }*/
+            this.s = t % 60;
+            this.m = Math.floor(t / 60) % 60;
+            this.h = (Math.floor(t / 3600) % 60) % 24;
+            this.d = Math.floor(t / 86400) % 30;
+            this.M = Math.floor(t / 2592000) % 12;
+            this.y = Math.floor(t / 31104000);
+            this.opt.ydom.innerHTML = this.y < 10 ? "0" + this.y : this.y;
+            this.opt.Mdom.innerHTML = this.M < 10 ? "0" + this.M : this.M;
+            this.opt.ddom.innerHTML = this.d < 10 ? "0" + this.d : this.d;
+            this.opt.hdom.innerHTML = this.h < 10 ? "0" + this.h : this.h;
+            this.opt.mdom.innerHTML = this.m < 10 ? "0" + this.m : this.m;
+            this.opt.sdom.innerHTML = this.s < 10 ? "0" + this.s : this.s;
+
+        }
+
+    };
+    var two = new countTime({
+        et: new Date('2015-4-7 8:30').getTime(),
+        ydom: document.getElementById('y'),
+        Mdom: document.getElementById('M'),
+        ddom: document.getElementById('d'),
+        hdom: document.getElementById('h'),
+        mdom: document.getElementById('m'),
+        sdom: document.getElementById('s')
+    });
+    two.init();
     </script>
-<!-- 多说公共JS代码 end -->
 </body>
+
 </html>

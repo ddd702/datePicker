@@ -33,7 +33,7 @@
 #datePlugin .d-date-wrap {
   margin-top: 10px;
   width: 100%;
-  height: 135px;
+  height: 105px;
   position: relative;
 }
 #datePlugin .d-time-wrap {
@@ -46,10 +46,10 @@
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
   position: absolute;
-  top: 45px;
+  top: 35px;
   left: 0;
   width: 100%;
-  height: 45px;
+  height: 35px;
 }
 #datePlugin .d-date-cell {
   float: left;
@@ -58,8 +58,8 @@
   overflow: hidden;
 }
 #datePlugin .d-date-cell li {
-  height: 45px;
-  line-height: 45px;
+  height: 35px;
+  line-height: 35px;
   text-align: center;
 }
 #datePlugin .d-date-btns .d-btn {
