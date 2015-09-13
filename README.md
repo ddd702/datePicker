@@ -3,8 +3,8 @@
 一个适合移动端的日期选择插件，支持ios,andriod,PC端主流浏览器
 ##DEMO
 [demo](http://deng213.sinaapp.com/demo/datePicker/)
-##依赖
-jquery 1.9+或者Zepto,iscroll5
+##依赖(由于iscroll5下滑动反弹太严重，换成iscroll4)
+jquery 1.9+或者Zepto,iscroll4
 ##使用：
 引入插件脚本和样式后,使用类似：$('#date').datePicker(opt);
 ##opt参数
@@ -42,7 +42,7 @@ jquery 1.9+或者Zepto,iscroll5
 调出插件的事件,默认为click
 
 ####scrollOpt
-iscroll5滚动设置,详情参见[iscroll5](https://github.com/cubiq/iscroll)
+iscroll4滚动设置,详情参见[iscroll4](https://github.com/cubiq/iscroll)
 
 ####callBack
 回调函数，按确认后执行的函数，默认function(){}
