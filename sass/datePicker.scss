@@ -1,0 +1,86 @@
+#datePlugin {
+  background: rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1111111;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+#datePlugin * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  background-clip: padding-box;
+}
+#datePlugin .d-date-box {
+  position: absolute;
+  bottom: 0;
+  background-color: #fff;
+  width: 100%;
+}
+#datePlugin .d-date-title {
+  text-align: left;
+  font-weight: 700;
+  padding: 10px;
+  color: #f70;
+}
+#datePlugin .d-date-info {
+  color: #333;
+  text-align: center;
+  font-size: 14px;
+}
+#datePlugin .d-date-wrap {
+  margin-top: 10px;
+  width: 100%;
+  height: 120px;
+  position: relative;
+}
+#datePlugin .d-time-wrap {
+  border-top: 1px solid #f70;
+}
+#datePlugin .d-time-wrap .d-date-cell {
+  width: 50%;
+}
+#datePlugin .d-date-mark {
+  background-color: #eee;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 100%;
+  height: 40px;
+}
+#datePlugin .d-date-cell {
+  float: left;
+  width: 33.33333%;
+  height: 100%;
+  overflow: hidden;
+}
+#datePlugin .d-date-cell li {
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+}
+#datePlugin .d-date-btns .d-btn {
+  background: #f70;
+  display: inline-block;
+  width: 50%;
+  margin-top: 10px;
+  border: none;
+  border-top: 1px solid #ddd;
+  color: #fff;
+  font-size: 16px;
+  padding: 10px 0;
+}
+#datePlugin .d-date-btns #d-okBtn {
+  /*    background: #f70;*/
+  /*border-bottom-left-radius: 5px;*/
+  border-right: 1px solid #ddd;
+}
+#datePlugin .d-date-btns #d-cancleBtn {
+  background: #f77;
+  /* border-bottom-right-radius: 5px;*/
+}
