@@ -6,6 +6,7 @@
   z-index: 1111111;
   width: 100%;
   height: 100%;
+  display: none;
 }
 #datePlugin * {
   box-sizing: border-box;
@@ -33,7 +34,7 @@
 #datePlugin .d-date-wrap {
   margin-top: 10px;
   width: 100%;
-  height: 105px;
+  height: 120px;
   position: relative;
 }
 #datePlugin .d-time-wrap {
@@ -43,13 +44,14 @@
   width: 50%;
 }
 #datePlugin .d-date-mark {
+  background-color: #eee;
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
   position: absolute;
-  top: 35px;
+  top: 40px;
   left: 0;
   width: 100%;
-  height: 35px;
+  height: 40px;
 }
 #datePlugin .d-date-cell {
   float: left;
@@ -58,8 +60,8 @@
   overflow: hidden;
 }
 #datePlugin .d-date-cell li {
-  height: 35px;
-  line-height: 35px;
+  height: 40px;
+  line-height: 40px;
   text-align: center;
 }
 #datePlugin .d-date-btns .d-btn {

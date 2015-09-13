@@ -4,7 +4,7 @@
    vaersion:1.0
    author:ddd
    https://github.com/ddd702/datePicker
-   update：2015-3-7
+   update：2015-5-5(with iscroll4)
  */
 (function($) {
     "use strict";
@@ -37,14 +37,15 @@
                 beginminute: 0,
                 endminute: 59,
                 curdate: false, //打开日期是否定位到当前日期
-                liH: 35,
+                liH: 40,
                 theme: "date", //控件样式（1：日期(date)，2：日期+时间(datetime),3:时间(time),4:年月(month)）
                 mode: null, //操作模式（滑动模式）
                 event: "click", //打开日期插件默认方式为点击后后弹出日期 
                 show: true,
                 scrollOpt: {
                     snap: "li",
-                    checkDOMChanges: true
+                    checkDOMChanges: true,
+                    vScrollbar:false
                 },
                 callBack: function() {}
             }
@@ -97,17 +98,22 @@
                         initS = parseInt(nowdate.getSeconds());
                 }
                 $('#datePlugin').show();
+                destroyScroll();
                 renderDom();
                 $('#d-okBtn').on('click', function(event) {
+                    destroyScroll();
                     document.getElementsByTagName('body')[0].removeEventListener('touchmove', cancleDefault, false);
-                    var getY = $('#yearScroll li').eq(initY).data('num');
-                    var getM = $('#monthScroll li').eq(initM).data('num');
-                    var getD = $('#dayScroll li').eq(initD).data('num');
+                    var y = $('#yearScroll li').eq(initY).data('num');
+                    var M = $('#monthScroll li').eq(initM).data('num');
+                    var d = $('#dayScroll li').eq(initD).data('num');
+                    var h = $('#hourScroll li').eq(initH).data('num');
+                    var m = $('#minuteScroll li').eq(initI).data('num');
                     that.val($('.d-return-info').html());
                     $('#datePlugin').hide().html('');
-                    opts.callBack();
+                    opts.callBack({y:y,M:M,d:d,h:h,m:m});
                 });
                 $('#d-cancleBtn').on('click', function(event) {
+                    destroyScroll();
                     $('#datePlugin').hide().html('');
                     document.getElementsByTagName('body')[0].removeEventListener('touchmove', cancleDefault, false);
                 });
@@ -210,7 +216,15 @@
                         break;
                 }
             }
-
+            function destroyScroll(){//销毁iscroll滚动
+                var scrollArr=[yearScroll,monthScroll,dayScroll,hourScroll,minuteScroll];
+                scrollArr.forEach(function(itm){
+                    if (itm!=null) {
+                        itm.destroy();
+                        itm=null;
+                    }
+                });
+            }
             function createYear() {
                 var yearDom = $('#yearScroll'),
                     yearNum = opts.endyear - opts.beginyear,
@@ -219,10 +233,15 @@
                     yearHtml += '<li data-num=' + (opts.beginyear + i) + '>' + (opts.beginyear + i) + '年</li>';
                 };
                 yearDom.find('ul').html(yearHtml).append('<li></li>');
-                yearScroll = new IScroll('#yearScroll', opts.scrollOpt);
+                yearScroll = new iScroll('yearScroll', $.extend(true, {}, opts.scrollOpt, {
+                    onScrollEnd: function() {
+                        yearScrollEnd(this);
+                    }
+                }));
                 yearScroll.scrollTo(0, -(initY - 1) * opts.liH);
-                yearScroll.on('scrollEnd', function(event) {
-                    var yIndex = Math.floor(-this.y/opts.liH);
+
+                function yearScrollEnd(_this) {
+                    var yIndex = Math.floor(-_this.y / opts.liH);
                     initY = yIndex + 1;
                     if (isLeap(parseInt(yearDom.find('li').eq(initY).data('num')))) {
                         opts.monthDay[1] = 29;
@@ -233,7 +252,7 @@
                         createDay(opts.monthDay[initM - 1]);
                     }
                     showTxt();
-                });
+                };
             }
 
             function createMonth() {
@@ -247,17 +266,23 @@
                     }
                 };
                 monthDom.find('ul').html(monthHtml).append('<li></li>');
-                monthScroll = new IScroll('#monthScroll', opts.scrollOpt);
+                monthScroll = new iScroll('monthScroll', $.extend(true, {}, opts.scrollOpt, {
+                    onScrollEnd: function() {
+                        monthScrollEnd(this);
+                    }
+                }));
                 monthScroll.scrollTo(0, -(initM - 1) * opts.liH);
-                monthScroll.on('scrollEnd', function(event) {
-                    var mIndex = Math.floor(-this.y/opts.liH);;
+
+                function monthScrollEnd(_this) {
+                    console.log('month');
+                    var mIndex = Math.floor(-_this.y / opts.liH);;
                     var dayNum = opts.monthDay[mIndex];
                     initM = mIndex + 1;
                     if (opts.theme != 'month') {
                         createDay(dayNum);
                     }
                     showTxt();
-                });
+                }
             }
 
             function createDay(dayNum) {
@@ -271,19 +296,20 @@
                     }
                 };
                 dayDom.find('ul').html(dayHtml).append('<li></li>');
-                if (dayScroll) {
-                    dayScroll.destroy();
-                    dayScroll = null;
-                }
-                dayScroll = new IScroll('#dayScroll', opts.scrollOpt);
+                dayScroll = new iScroll('dayScroll', $.extend(true, {}, opts.scrollOpt, {
+                    onScrollEnd: function() {
+                        dayScrollEnd(this);
+                    }
+                }));
                 if (initD > opts.monthDay[initM - 1]) {
                     initD = 1;
                 }
                 dayScroll.scrollTo(0, -(initD - 1) * opts.liH);
-                dayScroll.on('scrollEnd', function(event) {
-                    initD = Math.floor(-this.y/opts.liH) + 1;
+
+                function dayScrollEnd(_this) {
+                    initD = Math.floor(-_this.y / opts.liH) + 1;
                     showTxt();
-                });
+                }
             }
 
             function createHour() {
@@ -297,16 +323,16 @@
                     }
                 };
                 hourDom.find('ul').html(hourHtml).append('<li></li>');
-                if (hourScroll) {
-                    hourScroll.destroy();
-                    hourScroll = null;
-                }
-                hourScroll = new IScroll('#hourScroll', opts.scrollOpt);
+                hourScroll = new iScroll('hourScroll',  $.extend(true, {}, opts.scrollOpt, {
+                    onScrollEnd: function() {
+                        hourScrollEnd(this);
+                    }
+                }));
                 hourScroll.scrollTo(0, -(initH - 1) * opts.liH);
-                hourScroll.on('scrollEnd', function(event) {
-                    initH = Math.floor(-this.y/opts.liH)+ 1;
+                function hourScrollEnd(_this) {
+                    initH = Math.floor(-_this.y / opts.liH) + 1;
                     showTxt();
-                });
+                }
             }
 
             function createMinute() {
@@ -320,16 +346,16 @@
                     }
                 };
                 minuteDom.find('ul').html(minuteHtml).append('<li></li>');
-                if (minuteScroll) {
-                    minuteScroll.destroy();
-                    minuteScroll = null;
-                }
-                minuteScroll = new IScroll('#minuteScroll', opts.scrollOpt);
+                minuteScroll = new iScroll('minuteScroll', $.extend(true, {}, opts.scrollOpt, {
+                    onScrollEnd: function() {
+                        minuteScrollEnd(this);
+                    }
+                }));
                 minuteScroll.scrollTo(0, -(initI - 1) * opts.liH);
-                minuteScroll.on('scrollEnd', function(event) {
-                    initI = Math.floor(-this.y/opts.liH) + 1;
+                function minuteScrollEnd(_this) {
+                    initI = Math.floor(-_this.y / opts.liH) + 1;
                     showTxt();
-                });
+                }
             }
         });
     }
