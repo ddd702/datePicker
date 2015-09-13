@@ -42,7 +42,7 @@ jquery 1.9+或者Zepto,iscroll4
 调出插件的事件,默认为click
 
 ####scrollOpt
-iscroll4滚动设置,详情参见[iscroll4](https://github.com/cubiq/iscroll)
+iscroll4滚动设置,详情参见[iscroll4](http://cubiq.org/iscroll-4)
 
 ####callBack
 回调函数，按确认后执行的函数，默认function(){}
