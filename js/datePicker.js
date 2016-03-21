@@ -46,7 +46,8 @@
                     snap: "li",
                     checkDOMChanges: true,
                     vScrollbar:false,
-                    hScrollbar:false
+                    hScrollbar:false,
+                    hScroll:false
                 },
                 callBack: function() {}
             }
