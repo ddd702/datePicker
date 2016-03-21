@@ -45,7 +45,8 @@
                 scrollOpt: {
                     snap: "li",
                     checkDOMChanges: true,
-                    vScrollbar:false
+                    vScrollbar:false,
+                    hScrollbar:false
                 },
                 callBack: function() {}
             }
