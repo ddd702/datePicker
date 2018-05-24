@@ -100,11 +100,13 @@
                         initS = parseInt(nowdate.getSeconds());
                 }
                 $('#datePlugin').show();
+                document.body.style.overflow = 'hidden';
                 destroyScroll();
                 renderDom();
                 $('#d-okBtn').on('click', function(event) {
                     destroyScroll();
-                    document.getElementsByTagName('body')[0].removeEventListener('touchmove', cancleDefault, false);
+//                     document.getElementsByTagName('body')[0].removeEventListener('touchmove', cancleDefault, false);
+                    document.getElementById('datePlugin').addEventListener('touchmove', cancleDefault, false);
                     var y = $('#yearScroll li').eq(initY).data('num');
                     var M = $('#monthScroll li').eq(initM).data('num');
                     var d = $('#dayScroll li').eq(initD).data('num');
@@ -112,12 +114,15 @@
                     var m = $('#minuteScroll li').eq(initI).data('num');
                     that.val($('.d-return-info').html());
                     $('#datePlugin').hide().html('');
+                   document.body.style.overflow = 'auto';
                     opts.callBack({y:y,M:M,d:d,h:h,m:m});
                 });
                 $('#d-cancleBtn').on('click', function(event) {
                     destroyScroll();
                     $('#datePlugin').hide().html('');
-                    document.getElementsByTagName('body')[0].removeEventListener('touchmove', cancleDefault, false);
+                   document.body.style.overflow = 'auto';
+//                     document.getElementsByTagName('body')[0].removeEventListener('touchmove', cancleDefault, false);
+                   document.getElementById('datePlugin').removeEventListener('touchmove', cancleDefault, false);
                 });
             }
 
